@@ -1,0 +1,39 @@
+body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    section {
+      border: 2px solid #ddd;
+      padding: 15px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    /* ===== Завдання 2 ===== */
+    #box {
+      width: 50px;
+      height: 50px;
+      background-color: steelblue;
+      position: relative;
+    }
+
+    /* ===== Завдання 3 ===== */
+    #gameArea {
+      width: 300px;
+      height: 300px;
+      border: 2px solid black;
+      position: relative;
+      margin-top: 10px;
+    }
+
+    #target {
+      width: 40px;
+      height: 40px;
+      background-color: crimson;
+      position: absolute;
+      cursor: pointer;
+    }

@@ -1,68 +1,102 @@
-// setTimeOut (callback, delay, ag1...)
-//Інтервал
-// console.log("An event BEFORE set timeout invoked");
-// // setTimeout(() => {
-// //      console.log("An event INSIDE set timeout invoked");
-// // }, 5000);
-// // setTimeout(x,y =>{
-// //      console.log(x + y);
-// // },2000, 6,7);
+let messageCount = 0;
+const task1Output = document.getElementById('task1-output');
+
+const intervalId = setInterval(() => {
+  messageCount++;
+  task1Output.textContent = `Повідомлення №${messageCount}`;
+
+  if (messageCount === 5) {
+    clearInterval(intervalId);
+  }
+}, 1000);
 
 
-// // console.log("An event AFTER set timeout invoked");
+/* ================= Завдання 2 ================= */
+const box = document.getElementById('box');
+let size = 20;
+let position = 0;
 
-// const message = (time) => {
-//      console.log(`Message after $(time) ms invod`);
-// }
+setInterval(() => {
+  size += 1;
+  position += 10;
 
-// setTimeout(message, 3000, 500);
+  box.style.width = size + 'px';
+  box.style.height = size + 'px';
+  box.style.left = position + 'px';
 
-// const timeOutId = setTimeout(message, 500, 5000);
+  if (size > 50) {
+    size = 20;
+    position = 0;
+  }
+}, 500);
 
-// const needClearTimer = Math.random() > 0.5;
 
-// if(needClearTimer){
-//      clearTimeout(timeOutId);
-// // }
+/* ================= Завдання 3 ================= */
+const startGameBtn = document.getElementById('startGame');
+const target = document.getElementById('target');
+const scoreEl = document.getElementById('score');
+const timeEl = document.getElementById('time');
 
-// // setInterval (callback, delay, ag1...)
+let score = 0;
+let time = 10;
+let gameTimer = null;
+let gameActive = false;
 
-// const logger = (time) => {
-// console.log(`Logger after ${time} ms - ${Date.now()}`);
-// }
-// // console.log("log до виклику setInterval");
-// // setInterval(logger, 2000, 500);
-// // console.log("log після виклику setInterval");
-// const intervalId = setInterval(logger, 2000, 500);
-// console.log(intervalId);
-// const needClearInterval = Math.random() > 0.5;
-// console.log(needClearInterval);
-//  if(needClearInterval){
-//      clearInterval(intervalId);
-// }
-
-const timerRef = document.querySelector(".timer");
-
-const btnRef = document.querySelector("[data-action='handle-timer']");
-
-let count = 0;
-
-let intervalId = null;
-
-btnRef.addEventListener("click", (event) => {
-event.target.textContent = intervalId ? "Start " : "Pause";
-
-if (intervalId !== null) {
-     clearInterval(intervalId);
-     intervalId = null;
-     return;
+function moveTarget() {
+  const x = Math.random() * 260;
+  const y = Math.random() * 260;
+  target.style.left = x + 'px';
+  target.style.top = y + 'px';
 }
 
-     intervalId = setInterval(() => {
-          count += 1;
-          timerRef.textContent = count;
-     }, 1000); 
- 
+target.addEventListener('click', () => {
+  if (!gameActive) return;
+
+  score++;
+  scoreEl.textContent = score;
+  moveTarget();
 });
-//  btnRef.onClick = event => {
-//      event.target.textContent = Pause ? "Start" : "Pause";
+
+startGameBtn.addEventListener('click', () => {
+  if (gameActive) return;
+
+  // reset
+  score = 0;
+  time = 10;
+  gameActive = true;
+
+  scoreEl.textContent = score;
+  timeEl.textContent = time;
+
+  target.style.display = 'block';
+  moveTarget();
+
+  gameTimer = setInterval(() => {
+    time--;
+    timeEl.textContent = time;
+
+    if (time === 0) {
+      clearInterval(gameTimer);
+      gameActive = false;
+      target.style.display = 'none';
+      alert(`Гру завершено! Очки: ${score}`);
+    }
+  }, 1000);
+});
+
+/* ================= Завдання 4 ================= */
+const startBtn = document.getElementById('startTimer');
+const secondsInput = document.getElementById('seconds');
+
+startBtn.addEventListener('click', () => {
+  const seconds = Number(secondsInput.value);
+
+  if (seconds <= 0) {
+    alert('Введіть коректний час');
+    return;
+  }
+
+  setTimeout(() => {
+    alert(`Минуло ${seconds} секунд!`);
+  }, seconds * 1000);
+});
